@@ -1,0 +1,59 @@
+Frontend:
+
+
+
+Angular 19 keretrendszer,
+
+tetszőleges CSS könyvtár (pl. Bootstrap, Material, Tailwind CSS).
+
+Backend:
+
+
+
+TypeScript programozási nyelv,
+
+Express.js szerver,
+
+TypeORM,
+
+tetszőleges adatbázis.
+
+
+
+Oktatási nyilvántartó rendszer
+
+Általános leírás
+
+Minden hallgató szidta már a NEPTUN rendszer megalkotóit, ezért ebben a feladatban meg kell mutatni, hogy mennyivel jobb rendszer alapjainak megtervezésére és megvalósítására vagyunk képesek. A rendszer alapadatai: oktatók, hallgatók, tantárgyak és ezek kurzusai. A tervezendő rendszert csak adminisztrátorok használhatják az egyes hallgatók és oktatók nem. A hallgatókat és tárgyakat is az adminisztrátorok adják a rendszerbe, és a hallgató-tárgy összerendelést is ők végzik.
+
+
+
+Felhasználási esetek
+
+Oktatók/hallgatók menedzselése, listázása
+
+Oktatók és hallgatók hozzáadása a rendszerhez. Alapinformációk (ezek nem feltétlenül tábla oszlopok): Oktatók: Név, tanszék, oktatott tárgyak. Hallgatók: név, tankör, hallgatott tárgyak, érdemjegyek. A program listázza egy adott oktató: oktatott tárgyak listáját. Egy adott hallgató: felvett tantárgyak listája, érdemjegyekkel.
+
+
+
+Új kurzus felvétele
+
+Az oktatókhoz tantárgyak és a tantárgyakhoz kurzusok rendelhetőek. Természetesen törölhetőek is.
+
+
+
+Tárgyak hallgatók összerendelése
+
+Egy adott hallgató hozzárendelése egy kurzushoz. A rendszer figyelje, hogy nem vette-e fel a hallgató az adott tárgyat korábban.
+
+
+
+Érdemjegy menedzselés
+
+Egy adott hallgató érdemjegyet kap egy adott tárgy, adott kurzusán.
+
+
+
+Statisztikák kezelése
+
+Egy adott tankör tankörátlagának kiszámítása. Egy adott hallgató átlagának kiszámítása.
