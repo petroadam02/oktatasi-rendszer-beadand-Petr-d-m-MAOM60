@@ -1,0 +1,72 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Kurzusok Listája</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="actions-container">
+      <button mat-raised-button color="primary" (click)="ujKurzus()">
+        <mat-icon>class</mat-icon> Új Kurzus Hozzáadása
+      </button>
+    </div>
+
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && kurzusok.length === 0" class="no-data-message">
+      Nincsenek kurzusok a rendszerben.
+    </div>
+
+    <div *ngIf="!isLoading && kurzusok.length > 0" class="table-container mat-elevation-z8">
+      <table mat-table [dataSource]="kurzusok">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let kurzus"> {{kurzus.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="kurzusKod">
+          <th mat-header-cell *matHeaderCellDef> Kurzuskód </th>
+          <td mat-cell *matCellDef="let kurzus"> {{kurzus.kurzusKod}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="kurzusNev">
+          <th mat-header-cell *matHeaderCellDef> Kurzusnév </th>
+          <td mat-cell *matCellDef="let kurzus"> {{kurzus.kurzusNev || '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="targy">
+          <th mat-header-cell *matHeaderCellDef> Tárgy </th>
+          <td mat-cell *matCellDef="let kurzus"> {{getTargyNev(kurzus)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="oktato">
+          <th mat-header-cell *matHeaderCellDef> Oktató </th>
+          <td mat-cell *matCellDef="let kurzus"> {{getOktatoNev(kurzus)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="maxLetszam">
+          <th mat-header-cell *matHeaderCellDef> Max.L. </th>
+          <td mat-cell *matCellDef="let kurzus"> {{kurzus.maxLetszam}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Műveletek </th>
+          <td mat-cell *matCellDef="let kurzus">
+            <button mat-icon-button color="primary" aria-label="Kurzus szerkesztése" (click)="editKurzus(kurzus)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" aria-label="Kurzus törlése" (click)="deleteKurzus(kurzus.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" aria-label="Hallgató felvétele a kurzusra" (click)="openEnrollStudentDialog(kurzus)">
+              <mat-icon>person_add</mat-icon> </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,22 @@
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.actions-container {
+  margin-bottom: 16px;
+  text-align: right;
+}
+
+.table-container {
+  margin-top: 16px;
+}
+
+.no-data-message {
+  padding: 20px;
+  text-align: center;
+  color: grey;
+}

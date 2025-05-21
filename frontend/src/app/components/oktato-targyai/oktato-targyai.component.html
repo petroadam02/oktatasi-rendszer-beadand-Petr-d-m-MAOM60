@@ -1,0 +1,36 @@
+<mat-card *ngIf="!isLoadingOktato && oktato">
+  <mat-card-title>
+    {{ oktato.nev }} által oktatott tárgyak
+  </mat-card-title>
+  <mat-card-content>
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && targyak.length === 0 && !isLoadingOktato" class="no-data-message">
+      Ennek az oktatónak nincsenek rögzített tárgyai.
+    </div>
+
+    <mat-list *ngIf="!isLoading && targyak.length > 0">
+      <mat-list-item *ngFor="let targy of targyak">
+        <mat-icon matListItemIcon>school</mat-icon>
+        <div matListItemTitle>{{ targy.nev }} ({{ targy.kod }})</div>
+        <div matListItemLine>Kredit: {{ targy.kredit }}</div>
+      </mat-list-item>
+    </mat-list>
+
+    <a mat-stroked-button routerLink="/oktatok" class="back-button">Vissza az oktatók listájához</a>
+
+  </mat-card-content>
+</mat-card>
+
+<div *ngIf="isLoadingOktato" class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Oktató adatainak betöltése...</p>
+</div>
+
+<div *ngIf="!isLoadingOktato && !oktato" class="no-data-message">
+    Oktató nem található, vagy hiba történt a betöltésekor.
+    <br>
+    <a mat-stroked-button routerLink="/oktatok">Vissza az oktatók listájához</a>
+</div>

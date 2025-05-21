@@ -1,0 +1,18 @@
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+.no-data-message {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+mat-card {
+  margin: 20px;
+}
+.back-button {
+    margin-top: 20px;
+}

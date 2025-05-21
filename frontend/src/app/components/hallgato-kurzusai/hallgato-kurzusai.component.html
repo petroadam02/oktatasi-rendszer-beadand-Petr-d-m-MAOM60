@@ -1,0 +1,39 @@
+<mat-card *ngIf="hallgato">
+  <mat-card-title>Felvett kurzusok: {{ hallgato.nev }} ({{ hallgato.tritonKod }})</mat-card-title>
+  <mat-card-content>
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && felvettKurzusok.length === 0" class="no-data-message">
+      A hallgató még nem vett fel kurzusokat, vagy nincsenek betöltve.
+    </div>
+
+    <mat-list *ngIf="!isLoading && felvettKurzusok.length > 0">
+      <mat-list-item *ngFor="let fk of felvettKurzusok">
+        <mat-icon matListItemIcon>class</mat-icon>
+        <div matListItemTitle>
+          {{ fk.kurzus.kurzusKod }} - {{ fk.kurzus.targy.nev }}
+        </div>
+        <div matListItemLine>
+          Oktató: {{ fk.kurzus.oktato.nev }} | Kredit: {{ fk.kurzus.targy.kredit }}
+        </div>
+        <div matListItemMeta class="grade-input-container">
+          <mat-form-field appearance="outline" class="grade-input-field">
+            <mat-label>Érdemjegy</mat-label>
+            <input matInput type="number" min="1" max="5" 
+                   [(ngModel)]="erdemjegyInput[fk.id]" 
+                   (keyup.enter)="saveErdemjegy(fk.id)">
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="saveErdemjegy(fk.id)" aria-label="Érdemjegy mentése">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>
+<div *ngIf="!hallgato && !isLoading">
+  Hallgató adatai nem töltődtek be.
+</div>

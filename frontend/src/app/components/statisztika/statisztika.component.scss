@@ -1,0 +1,38 @@
+.statisztika-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.stat-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+button[type="submit"] {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.button-spinner {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.eredmeny-blokk {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+h4 {
+  margin-top: 0;
+}

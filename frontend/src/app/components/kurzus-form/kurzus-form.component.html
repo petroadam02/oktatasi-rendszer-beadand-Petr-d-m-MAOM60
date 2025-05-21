@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-title>{{ isEditMode ? 'Kurzus Szerkesztése' : 'Új Kurzus Felvétele' }}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="kurzusForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Kurzuskód</mat-label>
+        <input matInput formControlName="kurzusKod" placeholder="Pl. WEBPROG-L01" required>
+        <mat-error *ngIf="kurzusForm.get('kurzusKod')?.hasError('required')">
+          A kurzuskód megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="kurzusForm.get('kurzusKod')?.hasError('pattern')">
+          A kurzuskód csak betűket, számokat, kötőjelet és aláhúzást tartalmazhat.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Kurzusnév (opcionális)</mat-label>
+        <input matInput formControlName="kurzusNev" placeholder="Pl. Web-programozás Labor">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Maximális létszám</mat-label>
+        <input matInput type="number" formControlName="maxLetszam" placeholder="Pl. 20" required>
+        <mat-error *ngIf="kurzusForm.get('maxLetszam')?.hasError('required')">
+          A maximális létszám megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="kurzusForm.get('maxLetszam')?.hasError('min')">
+          A maximális létszám legalább 1 kell, hogy legyen.
+        </mat-error>
+        <mat-error *ngIf="kurzusForm.get('maxLetszam')?.hasError('pattern')">
+          Kérjük, érvényes számot adjon meg.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tárgy</mat-label>
+        <mat-select formControlName="targyId" required>
+          <mat-option *ngIf="!(targyak$ | async)?.length">Adatok betöltése vagy nincsenek tárgyak...</mat-option>
+          <mat-option *ngFor="let targy of targyak$ | async" [value]="targy.id">
+            {{targy.nev}} ({{targy.kod}})
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="kurzusForm.get('targyId')?.hasError('required')">
+          A tárgy kiválasztása kötelező.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Oktató</mat-label>
+        <mat-select formControlName="oktatoId" required>
+          <mat-option *ngIf="!(oktatok$ | async)?.length">Adatok betöltése vagy nincsenek oktatók...</mat-option>
+          <mat-option *ngFor="let oktato of oktatok$ | async" [value]="oktato.id">
+            {{oktato.nev}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="kurzusForm.get('oktatoId')?.hasError('required')">
+          Az oktató kiválasztása kötelező.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="goBack()">Mégse</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="kurzusForm.invalid">
+          {{ isEditMode ? 'Módosítások Mentése' : 'Kurzus Mentése' }}
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

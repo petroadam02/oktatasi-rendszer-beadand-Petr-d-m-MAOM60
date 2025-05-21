@@ -1,0 +1,15 @@
+.env
+
+# Node
+/node_modules/
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+
+# Angular cache
+/.angular/cache/
+
+# Compiled output
+/dist/
+/tmp/
+/out-tsc/

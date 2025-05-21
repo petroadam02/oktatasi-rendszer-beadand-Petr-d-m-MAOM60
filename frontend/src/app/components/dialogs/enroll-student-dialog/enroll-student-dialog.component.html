@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Hallgató felvétele: {{ data.kurzusNev }}</h1>
+<div mat-dialog-content>
+  <p *ngIf="isLoading" class="loading-or-empty-message">Hallgatók betöltése...</p>
+
+  <div *ngIf="!isLoading && allHallgatok.length === 0" class="loading-or-empty-message">
+    Nincsenek felvehető hallgatók erre a kurzusra, vagy nem sikerült betölteni őket.
+  </div>
+
+  <mat-selection-list *ngIf="!isLoading && allHallgatok.length > 0" #hallgatoLista (selectionChange)="onSelectionChange(hallgatoLista.selectedOptions.selected)">
+    <mat-list-option *ngFor="let hallgato of allHallgatok" [value]="hallgato" [checkboxPosition]="'before'">
+      {{ hallgato.nev }} ({{ hallgato.tritonKod }}) - {{ hallgato.tankor }}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <div *ngIf="!isLoading && selectedHallgatok.length > 0" class="selection-summary">
+    Kiválasztva: {{ selectedHallgatok.length }} hallgató
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onNoClick()">Mégse</button>
+  <button mat-raised-button color="primary" (click)="enroll()" [disabled]="selectedHallgatok.length === 0" cdkFocusInitial>Kiválasztottak Felvétele</button>
+</div>

@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-title>{{ isEditMode ? 'Tárgy Szerkesztése' : 'Új Tárgy Felvétele' }}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="targyForm" (ngSubmit)="onSubmit()">
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Név</mat-label>
+        <input matInput formControlName="nev" placeholder="Tárgy neve" required>
+        <mat-error *ngIf="targyForm.get('nev')?.hasError('required')">
+          A név megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="targyForm.get('nev')?.hasError('minlength')">
+          A névnek legalább 3 karakter hosszúnak kell lennie.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tárgykód</mat-label>
+        <input matInput formControlName="kod" placeholder="Pl. IP-18KPROG1" required>
+        <mat-error *ngIf="targyForm.get('kod')?.hasError('required')">
+          A tárgykód megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="targyForm.get('kod')?.hasError('pattern')">
+          A tárgykód csak betűket, számokat és kötőjelet tartalmazhat.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Kredit</mat-label>
+        <input matInput type="number" formControlName="kredit" placeholder="Kreditpont" required>
+        <mat-error *ngIf="targyForm.get('kredit')?.hasError('required')">
+          A kredit megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="targyForm.get('kredit')?.hasError('min')">
+          A kredit értéke nem lehet negatív.
+        </mat-error>
+        <mat-error *ngIf="targyForm.get('kredit')?.hasError('max')">
+          A kredit értéke maximum 30 lehet.
+        </mat-error>
+        <mat-error *ngIf="targyForm.get('kredit')?.hasError('pattern')">
+          A kreditnek egész számnak kell lennie.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="goBack()">Mégse</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="targyForm.invalid">
+          {{ isEditMode ? 'Módosítások Mentése' : 'Tárgy Mentése' }}
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

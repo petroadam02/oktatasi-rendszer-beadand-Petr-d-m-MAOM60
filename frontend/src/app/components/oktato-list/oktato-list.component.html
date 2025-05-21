@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Oktatók Listája</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="actions-container">
+      <button mat-raised-button color="primary" (click)="ujOktato()">
+        <mat-icon>add</mat-icon> Új Oktató Hozzáadása
+      </button>
+    </div>
+
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && oktatok.length === 0" class="no-data-message">
+      Nincsenek oktatók a rendszerben.
+    </div>
+
+    <div *ngIf="!isLoading && oktatok.length > 0" class="table-container mat-elevation-z8">
+      <table mat-table [dataSource]="oktatok">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let oktato"> {{oktato.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nev">
+          <th mat-header-cell *matHeaderCellDef> Név </th>
+          <td mat-cell *matCellDef="let oktato"> {{oktato.nev}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tanszek">
+          <th mat-header-cell *matHeaderCellDef> Tanszék </th>
+          <td mat-cell *matCellDef="let oktato"> {{oktato.tanszek || '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Műveletek </th>
+          <td mat-cell *matCellDef="let oktato">
+            <button mat-icon-button color="primary" aria-label="Oktató szerkesztése" (click)="editOktato(oktato)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" aria-label="Oktató törlése" (click)="deleteOktato(oktato.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" [routerLink]="['/oktatok', oktato.id, 'targyai']" aria-label="Oktató tárgyai">
+              <mat-icon>menu_book</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

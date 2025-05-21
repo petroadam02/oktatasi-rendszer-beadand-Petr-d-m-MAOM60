@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-title>{{ isEditMode ? 'Oktató Szerkesztése' : 'Új Oktató Felvétele' }}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="oktatoForm" (ngSubmit)="onSubmit()">
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Név</mat-label>
+        <input matInput formControlName="nev" placeholder="Oktató neve" required>
+        <mat-error *ngIf="oktatoForm.get('nev')?.hasError('required')">
+          A név megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="oktatoForm.get('nev')?.hasError('minlength')">
+          A névnek legalább 3 karakter hosszúnak kell lennie.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tanszék</mat-label>
+        <input matInput formControlName="tanszek" placeholder="Oktató tanszéke">
+        </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="goBack()">Mégse</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="oktatoForm.invalid">
+          {{ isEditMode ? 'Módosítások Mentése' : 'Oktató Mentése' }}
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

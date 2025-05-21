@@ -1,0 +1,68 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Hallgatók Listája</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="actions-container">
+      <button mat-raised-button color="primary" (click)="ujHallgato()">
+        <mat-icon>person_add</mat-icon> Új Hallgató Hozzáadása
+      </button>
+    </div>
+
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && hallgatok.length === 0" class="no-data-message">
+      Nincsenek hallgatók a rendszerben.
+    </div>
+
+    <div *ngIf="!isLoading && hallgatok.length > 0" class="table-container mat-elevation-z8">
+      <table mat-table [dataSource]="hallgatok">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let hallgato"> {{hallgato.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nev">
+          <th mat-header-cell *matHeaderCellDef> Név </th>
+          <td mat-cell *matCellDef="let hallgato"> {{hallgato.nev}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tritonKod">
+          <th mat-header-cell *matHeaderCellDef> Triton Kód </th>
+          <td mat-cell *matCellDef="let hallgato"> {{hallgato.tritonKod}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let hallgato"> {{hallgato.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tankor">
+          <th mat-header-cell *matHeaderCellDef> Tankör </th>
+          <td mat-cell *matCellDef="let hallgato"> {{hallgato.tankor}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Műveletek </th>
+          <td mat-cell *matCellDef="let hallgato">
+            <button mat-icon-button color="primary" aria-label="Hallgató szerkesztése" (click)="editHallgato(hallgato)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" aria-label="Hallgató törlése" (click)="deleteHallgato(hallgato.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="info" aria-label="Hallgató kurzusai" (click)="navigateToHallgatoKurzusai(hallgato.id)">
+              <mat-icon>list_alt</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

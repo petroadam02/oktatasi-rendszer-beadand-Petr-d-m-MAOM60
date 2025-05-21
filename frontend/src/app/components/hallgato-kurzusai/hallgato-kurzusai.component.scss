@@ -1,0 +1,16 @@
+.grade-input-container {
+  display: flex;
+  align-items: center;
+flex-shrink: 0;
+}
+.grade-input-field {
+  width: 70px;
+  margin-right: 8px;
+}
+.spinner-container, .no-data-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100px;
+}

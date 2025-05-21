@@ -1,0 +1,41 @@
+// enroll-student-dialog.component.scss
+:host {
+  display: block;
+}
+
+mat-dialog-content {
+  display: flex;             // Flexbox konténer
+  flex-direction: column;    // Elemek egymás alatt
+  max-height: 70vh;          // Vagy pl. 500px; a dialógus tartalmának maximális magassága
+  overflow: hidden;          // A mat-dialog-content maga NE görgessen, ha a lista fog
+}
+
+.loading-or-empty-message { // Egy új osztály a p és div tagekhez, amik a lista helyén jelennek meg
+    padding: 20px;
+    text-align: center;
+    color: grey;
+}
+
+mat-selection-list {
+  flex-grow: 1;              // Hogy kitöltse a rendelkezésre álló helyet a flex konténerben
+  overflow-y: auto;          // A lista legyen görgethető
+  display: block;            // Biztosítja a helyes blokk-szintű viselkedést
+  border: 1px solid #e0e0e0; // Vékony keret a lista körül (opcionális, teszteléshez)
+  margin-bottom: 16px;       // Térköz a lista és az akciógombok között
+}
+
+// Biztosítsuk, hogy a "Kiválasztva X hallgató" szöveg is látható legyen
+.selection-summary {
+    margin-top: 10px;
+    padding-bottom: 10px; // Kis térköz az akciógombok előtt
+    flex-shrink: 0; // Ne zsugorodjon össze, ha a lista nő
+}
+
+h1[mat-dialog-title] {
+  margin-bottom: 20px;
+}
+
+div[mat-dialog-actions] {
+  padding-top: 0; // Ha a .selection-summary-nek van alsó paddingja/margója
+  flex-shrink: 0; // Az akciógombok se zsugorodjanak
+}

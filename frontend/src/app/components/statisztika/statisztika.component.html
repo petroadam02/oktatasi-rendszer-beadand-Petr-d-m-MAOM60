@@ -1,0 +1,63 @@
+<div class="statisztika-container">
+  <mat-card class="stat-card">
+    <mat-card-title>Hallgatói Átlag</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="hallgatoAtlagForm" (ngSubmit)="onLekerdezHallgatoAtlag()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Hallgató</mat-label>
+          <mat-select formControlName="hallgatoId">
+            <mat-option *ngFor="let hallgato of hallgatok$ | async" [value]="hallgato.id">
+              {{hallgato.nev}} ({{hallgato.tritonKod}})
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hallgatoAtlagForm.get('hallgatoId')?.hasError('required')">
+            Hallgató kiválasztása kötelező.
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="hallgatoAtlagForm.invalid || isLoadingHallgatoAtlag">
+          <span *ngIf="!isLoadingHallgatoAtlag">Átlag Lekérdezése</span>
+          <mat-spinner *ngIf="isLoadingHallgatoAtlag" diameter="20" class="button-spinner"></mat-spinner>
+        </button>
+      </form>
+
+      <div *ngIf="hallgatoAtlagEredmeny" class="eredmeny-blokk">
+        <h4>Eredmény:</h4>
+        <p>Tanulmányi átlag: <strong>{{ hallgatoAtlagEredmeny.atlag !== null ? (hallgatoAtlagEredmeny.atlag | number:'1.2-2') : 'N/A' }}</strong></p>
+        <p>Figyelembe vett érdemjegyek száma: {{ hallgatoAtlagEredmeny.figyelembeVettErdemjegyekSzama }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-divider></mat-divider>
+
+   <mat-card class="stat-card">
+        <mat-card-title>Tankörátlag</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="tankorAtlagForm" (ngSubmit)="onLekerdezTankorAtlag()">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Tankör</mat-label>
+              <mat-select formControlName="tankor"> 
+                <mat-option *ngIf="!(egyediTankorok$ | async)?.length">Adatok betöltése vagy nincsenek tankörök...</mat-option>
+                <mat-option *ngFor="let tk of egyediTankorok$ | async" [value]="tk">
+                  {{tk}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="tankorAtlagForm.get('tankor')?.hasError('required')">
+                Tankör kiválasztása kötelező.
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" [disabled]="tankorAtlagForm.invalid || isLoadingTankorAtlag">
+              <span *ngIf="!isLoadingTankorAtlag">Tankörátlag Lekérdezése</span>
+              <mat-spinner *ngIf="isLoadingTankorAtlag" diameter="20" class="button-spinner"></mat-spinner>
+            </button>
+          </form>
+
+          <div *ngIf="tankorAtlagEredmeny" class="eredmeny-blokk">
+            <h4>Eredmény ({{ tankorAtlagEredmeny.tankor }}):</h4>
+            <p>Tankörátlag: <strong>{{ tankorAtlagEredmeny.atlag !== null ? (tankorAtlagEredmeny.atlag | number:'1.2-2') : 'N/A' }}</strong></p>
+            <p>Figyelembe vett érdemjegyek száma: {{ tankorAtlagEredmeny.figyelembeVettErdemjegyekSzama }}</p>
+            <p>Hallgatók száma a tankörben: {{ tankorAtlagEredmeny.hallgatokSzamaEbbenATankorben }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>

@@ -1,0 +1,17 @@
+mat-card {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px; /* Kis térköz a gombok között */
+  margin-top: 20px;
+}

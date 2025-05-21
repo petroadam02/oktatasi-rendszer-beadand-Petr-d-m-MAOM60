@@ -1,0 +1,62 @@
+<mat-card>
+  <mat-card-title>{{ isEditMode ? 'Hallgató Szerkesztése' : 'Új Hallgató Felvétele' }}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="hallgatoForm" (ngSubmit)="onSubmit()">
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Név</mat-label>
+        <input matInput formControlName="nev" placeholder="Hallgató neve" required>
+        <mat-error *ngIf="hallgatoForm.get('nev')?.hasError('required')">
+          A név megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="hallgatoForm.get('nev')?.hasError('minlength')">
+          A névnek legalább 3 karakter hosszúnak kell lennie.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Triton Kód (pontosan 6 karakter)</mat-label>
+        <input matInput formControlName="tritonKod" placeholder="Pl. ABC123" required maxlength="6">
+        <mat-error *ngIf="hallgatoForm.get('tritonKod')?.hasError('required')">
+          A Triton kód megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="hallgatoForm.get('tritonKod')?.hasError('minlength') || hallgatoForm.get('tritonKod')?.hasError('maxlength')">
+          A Triton kódnak pontosan 6 karakter hosszúnak kell lennie.
+        </mat-error>
+        <mat-error *ngIf="hallgatoForm.get('tritonKod')?.hasError('pattern')">
+          A Triton kód csak betűket és számokat tartalmazhat (minta alapján).
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email cím</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="hallgato@example.com" required>
+        <mat-error *ngIf="hallgatoForm.get('email')?.hasError('required')">
+          Az email cím megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="hallgatoForm.get('email')?.hasError('email')">
+          Kérjük, érvényes email címet adjon meg.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tankör</mat-label>
+        <input matInput formControlName="tankor" placeholder="Hallgató tanköre (pl. IK-PTI-N-2023)" required>
+        <mat-error *ngIf="hallgatoForm.get('tankor')?.hasError('required')">
+          A tankör megadása kötelező.
+        </mat-error>
+        <mat-error *ngIf="hallgatoForm.get('tankor')?.hasError('minlength')">
+          A tankörnek legalább 2 karakter hosszúnak kell lennie.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="goBack()">Mégse</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="hallgatoForm.invalid">
+          {{ isEditMode ? 'Módosítások Mentése' : 'Hallgató Mentése' }}
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>
